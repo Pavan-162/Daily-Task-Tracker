@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Task Progress Tracker</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="icon">✓</span>
+                    Daily Tasks
+                </h1>
+                <div class="date-display" id="currentDate"></div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="today">Today's Tasks</button>
+            <button class="nav-tab" data-tab="calendar">Calendar View</button>
+            <button class="nav-tab" data-tab="recurring">Multi-Day Tasks</button>
+        </div>
+
+        <!-- Today's Tasks Tab -->
+        <div class="tab-content active" id="todayTab">
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-card">
+                    <div class="progress-circle" id="progressCircle">
+                        <div class="progress-number" id="progressNumber">0%</div>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="completedTasks">0</span>
+                            <span class="stat-label">Completed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="totalTasks">0</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="activeTasks">0</span>
+                            <span class="stat-label">Remaining</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Task Section -->
+            <div class="add-task-section">
+                <div class="add-task-card">
+                    <div class="add-task-form">
+                      <h3>What do you want to do today?</h3>
+                        <input 
+                            type="text" 
+                            id="newTaskInput" 
+                            placeholder="What do you want to accomplish today?"
+                            class="task-input"
+                        >
+                        <div class="task-options">
+                            <select id="taskPriority" class="priority-select">
+                                <option value="low">Low Priority</option>
+                                <option value="medium" selected>Medium Priority</option>
+                                <option value="high">High Priority</option>
+                            </select>
+                            <button id="addTaskBtn" class="add-btn">
+                                <span class="add-icon">+</span>
+                                Add Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Tasks</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="tasks-section">
+                <div class="tasks-container" id="tasksContainer">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">📝</div>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task to get started on your productive day!</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Calendar Tab -->
+        <div class="tab-content" id="calendarTab">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <button class="nav-btn" id="prevMonth">‹</button>
+                    <h2 class="calendar-title" id="calendarTitle">January 2024</h2>
+                    <button class="nav-btn" id="nextMonth">›</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </div>
+            
+            <div class="selected-date-tasks" id="selectedDateTasks">
+                <h3 id="selectedDateTitle">Select a date to view tasks</h3>
+                <div class="date-tasks-container" id="dateTasksContainer">
+                    <!-- Selected date tasks will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Multi-Day Tasks Tab -->
+        <div class="tab-content" id="recurringTab">
+            <div class="add-recurring-section">
+                <div class="add-task-card">
+                    <h3 class="section-title">Create Multi-Day Task</h3>
+                    <div class="recurring-form">
+                        <input 
+                            type="text" 
+                            id="recurringTaskInput" 
+                            placeholder="Task title (e.g., Exercise for 30 minutes)"
+                            class="task-input"
+                        >
+                        <div class="date-range">
+                            <div class="date-input-group">
+                                <label for="startDate">Start Date</label>
+                                <input type="date" id="startDate" class="date-input">
+                            </div>
+                            <div class="date-input-group">
+                                <label for="endDate">End Date</label>
+                                <input type="date" id="endDate" class="date-input">
+                            </div>
+                        </div>
+                        <div class="task-options">
+                            <select id="recurringPriority" class="priority-select">
+                                <option value="low">Low Priority</option>
+                                <option value="medium" selected>Medium Priority</option>
+                                <option value="high">High Priority</option>
+                            </select>
+                            <button id="addRecurringBtn" class="add-btn">
+                                <span class="add-icon">+</span>
+                                Create Multi-Day Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recurring-tasks-section">
+                <h3 class="section-title">Active Multi-Day Tasks</h3>
+                <div class="recurring-tasks-container" id="recurringTasksContainer">
+                    <!-- Recurring tasks will be displayed here -->
+                </div>
+                <div class="empty-state" id="recurringEmptyState">
+                    <div class="empty-icon">📅</div>
+                    <h3>No multi-day tasks</h3>
+                    <p>Create tasks that span multiple days to track your long-term goals!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('Service Worker registered!'))
+        .catch(error => console.error('Service Worker registration failed:', error));
+    }
+    </script>
+</body>
+</html>
